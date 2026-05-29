@@ -1,41 +1,24 @@
 # API Bridge Builder
 
-Autonomous API connection generator with natural language input, SQLite knowledge base, and Ralph loop.
+> Autonomous API bridge builder with NL parsing and Ralph self-critique loop. Describe two systems to connect and get a structured bridge spec.
 
-## What it does
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/skippersayshi/api-bridge-builder)
 
-- Parses plain language descriptions into structured mapping intents (via Claude Haiku)
-- Generates field mappings between source and target systems autonomously
-- Tests structural validity of each mapping
-- Stores results in SQLite — reuses successful mappings on future runs
-- Ralph loop: refines using prior knowledge, gets smarter with every run
+## Features
 
-## Install
+- Natural language → field mapping spec
+- SQLite knowledge base for reuse across sessions  
+- Ralph loop: build → critique → retry until optimal
+- REST API + Apple-style web UI
 
-```bash
-pip install anthropic httpx pydantic
-export ANTHROPIC_API_KEY=your_key
-```
-
-## Run
+## Run Locally
 
 ```bash
-python bridge_builder.py
+pip install -r requirements.txt
+uvicorn app:app --reload
+# Open http://localhost:8000
 ```
 
-## Components
+## Deploy
 
-| Class | Role |
-|---|---|
-| `NLParser` | Plain language -> MappingIntent via Claude |
-| `BridgeBuilder` | Generates field mappings via Claude |
-| `ConnectionTester` | Validates mapping structure |
-| `KnowledgeBase` | SQLite cache + learning store |
-| `RalphLoop` | Orchestrates full autonomous cycle |
-
-## Example
-
-```python
-loop = RalphLoop()
-result = loop.run("Connect Salesforce to SAP via REST. Map customer_id, email, invoice_total.")
-```
+Click the Railway button above — `railway.toml` is pre-configured.
